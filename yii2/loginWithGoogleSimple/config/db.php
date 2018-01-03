@@ -2,7 +2,7 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=yii2basic',
+	'dsn' => 'sqlite:@app/../../../secure/loginWithGoogleSimple/loginWithGoogleSimple.sqlite',
     'username' => 'root',
     'password' => '',
     'charset' => 'utf8',

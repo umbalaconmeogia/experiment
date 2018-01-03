@@ -3,6 +3,10 @@
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
+// Load some Google Authentication information from external file.
+// This file returns an array that holds data as key-value pairs.
+$systemConfig = require __DIR__ . '/../../../../secure/loginWithGoogleSimple/config.php';
+
 $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
@@ -14,7 +18,17 @@ $config = [
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => '',
+            'cookieValidationKey' => 'LoginWithGoogleSimple-dslkfj3248903jwoiwj',
+        ],
+        'authClientCollection' => [
+            'class' => 'yii\authclient\Collection',
+            'clients' => [
+                'google' => [
+                    'class' => 'yii\authclient\clients\Google',
+                    'clientId' => $systemConfig['oauthGoogleClientId'],
+                    'clientSecret' => $systemConfig['oauthGoogleClientSecret'],
+                ],
+            ],
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -34,7 +48,7 @@ $config = [
             'useFileTransport' => true,
         ],
         'log' => [
-            'traceLevel' => YII_DEBUG ? 3 : 0,
+            'traceLevel' => YII_DEBUG ? 0 : 0,
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
