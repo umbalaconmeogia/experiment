@@ -134,7 +134,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 * Yii2 Auth Clients
 I create this example based on this article (although its code may not work with the current Google API, don't know if it's bug or Google API changed).
-https://code.tutsplus.com/tutorials/how-to-program-with-yii2-google-authentication--cms-24987
+https://yii2-framework.readthedocs.io/en/stable/guide/security-auth-clients/
 
 * Login with google using dektrium/yii2-user.
 Although there are some bugs in the tutorial, it helps me starting with login with Google ID.
