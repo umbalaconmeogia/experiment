@@ -130,64 +130,91 @@ class SiteController extends Controller
         return $this->render('about');
     }
 
+    /**
+     * Callback when "auth" success.
+     * @param yii\authclient\ClientInterface $client
+     */
     public function onAuthSuccess($client)
     {
         $attributes = $client->getUserAttributes();
 
+        // Check if Google authentication registered.
         /** @var Auth $auth */
         $auth = Auth::find()->where([
             'source' => $client->getId(),
             'source_id' => $attributes['id'],
         ])->one();
 
-        if (Yii::$app->user->isGuest) {
-            if ($auth) { // login
+        if (Yii::$app->user->isGuest) { // If not logged in
+            $user = NULL;
+            if ($auth) { // If Google account registered, then login corresponding user.
                 $user = $auth->user;
-                Yii::$app->user->login($user);
-            } else { // signup
+            } else { // Signup a user with this Google account.
                 $email = $this->getGoogleUserEmail($attributes);
                 if (User::find()->where(['email' => $email])->exists()) {
-                    Yii::$app->getSession()->setFlash('error', [
-                        Yii::t('app', "User with the same email as in {client} account already exists but isn't linked to it. Login using email first to link it.", ['client' => $client->getTitle()]),
-                    ]);
-                } else {
-                    $password = Yii::$app->security->generateRandomString(6);
-                    $user = new User([
-                        'username' => $email,
-                        'email' => $email,
-                    ]);
-                    $transaction = $user->getDb()->beginTransaction();
-                    if ($user->save()) {
-                        $auth = new Auth([
-                            'user_id' => $user->id,
-                            'source' => $client->getId(),
-                            'source_id' => (string)$attributes['id'],
+                    $this->setFlashError(
+                        Yii::t('app', "User with the same email as in {client} account already exists but isn't linked to it. Login using email first to link it.", ['client' => $client->getTitle()])
+                    );
+                } else { // User not registered. Register it.
+                    $transaction = User::getDb()->beginTransaction();
+                    try {
+                        // Register user with Google account.
+                        $user = new User([
+                            'username' => $email,
+                            'email' => $email,
                         ]);
-                        if ($auth->save()) {
-                            $transaction->commit();
-                            Yii::$app->user->login($user);
+                        if ($user->save()) {
+                            if (!$this->createAuth($user->id, $client)) {
+                                throw new \Exception(print_r($auth->getErrors(), TRUE));
+                            }
                         } else {
-                            print_r($auth->getErrors());
+                            throw new \Exception(print_r($user->getErrors(), TRUE));
                         }
-                    } else {
-                        print_r($user->getErrors());
+                        $transaction->commit();
+                    } catch (\Exception $e) {
+                        $transaction->rollBack();
+                        $this->setFlashError($e->getMessage());
                     }
                 }
             }
+            // Login user if success.
+            if ($user) {
+                Yii::$app->user->login($user);
+            }
         } else { // user already logged in
-            if (!$auth) { // add auth provider
-                $auth = new Auth([
-                    'user_id' => Yii::$app->user->id,
-                    'source' => $client->getId(),
-                    'source_id' => $attributes['id'],
-                ]);
-                $auth->save();
+            if (!$auth) { // add auth provider if not registered.
+                $this->createAuth(Yii::$app->user->id, $client);
             }
         }
     }
 
     /**
+     * Create an Auth object, and save it into DB.
+     * @param int $userId
+     * @param yii\authclient\ClientInterface $client
+     * @return boolean Result of Auth#save()
+     */
+    private function createAuth($userId, $client)
+    {
+        $auth = new Auth([
+            'user_id' => $userId,
+            'source' => $client->getId(),
+            'source_id' => $client->getUserAttributes()['id'],
+        ]);
+        return $auth->save();
+    }
+
+    /**
+     * @param string $message
+     */
+    private function setFlashError($message)
+    {
+        Yii::$app->getSession()->setFlash('error', $message);
+    }
+
+    /**
      * Get email from user attributes of Google Authentication client.
+     * Google client return email in "emails" array.
      * @param array $attributes
      * @return string May be null if does not exist.
      */

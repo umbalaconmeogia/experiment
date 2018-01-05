@@ -1,9 +1,8 @@
 # Implement login with Google on yii2 based system
 
+## Overview
 This example describes the simplest integration of login with Google account in yii2 system.
 For simplicity, no more login method (such as via username/password) is implemented.
-
-## Overview
 
 I use the basic template of yii2 2.0.13 to create this example.
 
@@ -53,7 +52,7 @@ composer update
 This will update yii2 framework and other extensions, too.
 
 You can run
-`composer require "yiisoft/yii2-authclient"` instead of steps above. But in my case, extension like sebastian/diff requires PHP 7, which is not my enviroment. Adding yii2-authclient manually as above does not require PHP 7.
+`composer require "yiisoft/yii2-authclient"` instead of steps above. But in my case, extension like sebastian/diff requires PHP 7, which is not my enviroment. Adding yii2-authclient manually as above does not require PHP 7 (in fact, sebastian/diff is downgrade from 2.0.1 to 1.4.3).
 
 ### Configure web application
 

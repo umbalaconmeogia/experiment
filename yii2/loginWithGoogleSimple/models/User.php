@@ -7,12 +7,11 @@ use Yii;
 /**
  * This is the model class for table "user".
  *
- * @property integer $id
+ * @property int $id
  * @property string $username
  * @property string $email
- * @property integer $status
- * @property integer $created_at
- * @property integer $updated_at
+ * @property int $created_at
+ * @property int $updated_at
  *
  * @property Auth[] $auths
  */
@@ -33,7 +32,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     {
         return [
             [['username', 'email'], 'required'],
-            [['status', 'created_at', 'updated_at'], 'integer'],
+            [['created_at', 'updated_at'], 'integer'],
             [['username', 'email'], 'string', 'max' => 255],
         ];
     }
@@ -47,7 +46,6 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             'id' => 'ID',
             'username' => 'Username',
             'email' => 'Email',
-            'status' => 'Status',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
@@ -91,7 +89,6 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public function getAuthKey()
     {
         throw new NotSupportedException('Method "' . __CLASS__ . '::' . __METHOD__ . '" is not implemented.');
-        return $this->auth_key;
     }
 
     /**
@@ -100,6 +97,5 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public function validateAuthKey($authKey)
     {
         throw new NotSupportedException('Method "' . __CLASS__ . '::' . __METHOD__ . '" is not implemented.');
-        return $this->auth_key=== $authKey;
     }
 }
