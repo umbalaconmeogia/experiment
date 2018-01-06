@@ -151,7 +151,7 @@ class SiteController extends Controller
                 $user = $auth->user;
             } else { // Signup a user with this Google account.
                 $email = $this->getGoogleUserEmail($attributes);
-                if (User::find()->where(['email' => $email])->exists()) {
+                if (User::find()->where(['username' => $email])->exists()) {
                     $this->setFlashError(
                         Yii::t('app', "User with the same email as in {client} account already exists but isn't linked to it. Login using email first to link it.", ['client' => $client->getTitle()])
                     );
@@ -161,8 +161,10 @@ class SiteController extends Controller
                         // Register user with Google account.
                         $user = new User([
                             'username' => $email,
-                            'email' => $email,
+                            'password' => Yii::$app->security->generateRandomString(6),
                         ]);
+                        $user->generateAuthKey();
+                        $user->generatePasswordResetToken();
                         if ($user->save()) {
                             if (!$this->createAuth($user->id, $client)) {
                                 throw new \Exception(print_r($auth->getErrors(), TRUE));

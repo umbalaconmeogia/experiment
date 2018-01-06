@@ -2,7 +2,7 @@
 
 return [
     'class' => 'yii\db\Connection',
-	'dsn' => 'sqlite:@app/../../../secure/loginWithGoogleSimple/loginWithGoogleSimple.sqlite',
+	'dsn' => 'sqlite:@app/../../../secure/loginWithAllowedGoogle/loginWithAllowedGoogle.sqlite',
     'username' => 'root',
     'password' => '',
     'charset' => 'utf8',

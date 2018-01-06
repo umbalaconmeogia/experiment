@@ -5,7 +5,7 @@ $db = require __DIR__ . '/db.php';
 
 // Load some Google Authentication information from external file.
 // This file returns an array that holds data as key-value pairs.
-$systemConfig = require __DIR__ . '/../../../../secure/loginWithGoogleSimple/config.php';
+$systemConfig = require __DIR__ . '/../../../../secure/loginWithAllowedGoogle/config.php';
 
 $config = [
     'id' => 'basic',
