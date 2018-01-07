@@ -8,6 +8,7 @@ use app\models\UserSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use batsg\Y;
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -66,8 +67,13 @@ class UserController extends Controller
     {
         $model = new User();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->save()) {
+                Y::setFlashSuccess("User {$model->username} is registered.");
+                return $this->redirect(['view', 'id' => $model->id]);
+            } else {
+                Y::setFlashError("Error registering user {$model->username}");
+            }
         }
 
         return $this->render('create', [
@@ -104,7 +110,7 @@ class UserController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $this->findModel($id)->deleteLogically();
 
         return $this->redirect(['index']);
     }

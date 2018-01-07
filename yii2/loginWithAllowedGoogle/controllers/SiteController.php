@@ -149,33 +149,15 @@ class SiteController extends Controller
             $user = NULL;
             if ($auth) { // If Google account registered, then login corresponding user.
                 $user = $auth->user;
-            } else { // Signup a user with this Google account.
+            } else { // Register Auth for an existing user.
                 $email = $this->getGoogleUserEmail($attributes);
-                if (User::find()->where(['username' => $email])->exists()) {
-                    $this->setFlashError(
-                        Yii::t('app', "User with the same email as in {client} account already exists but isn't linked to it. Login using email first to link it.", ['client' => $client->getTitle()])
-                    );
-                } else { // User not registered. Register it.
-                    $transaction = User::getDb()->beginTransaction();
-                    try {
-                        // Register user with Google account.
-                        $user = new User([
-                            'username' => $email,
-                            'password' => Yii::$app->security->generateRandomString(6),
-                        ]);
-                        $user->generateAuthKey();
-                        $user->generatePasswordResetToken();
-                        if ($user->save()) {
-                            if (!$this->createAuth($user->id, $client)) {
-                                throw new \Exception(print_r($auth->getErrors(), TRUE));
-                            }
-                        } else {
-                            throw new \Exception(print_r($user->getErrors(), TRUE));
-                        }
-                        $transaction->commit();
-                    } catch (\Exception $e) {
-                        $transaction->rollBack();
-                        $this->setFlashError($e->getMessage());
+                $user = User::findByUsername($email);
+                if (!$user) {
+                    $this->setFlashError("User $email is not allowed to login");
+                } else {
+                    if (!$this->createAuth($user->id, $client)) {
+                        $user = NULL; // Not login user.
+                        $this->setFlashError('Error creating Auth');
                     }
                 }
             }
@@ -184,9 +166,9 @@ class SiteController extends Controller
                 Yii::$app->user->login($user);
             }
         } else { // user already logged in
-            if (!$auth) { // add auth provider if not registered.
-                $this->createAuth(Yii::$app->user->id, $client);
-            }
+//             if (!$auth) { // add auth provider if not registered.
+//                 $this->createAuth(Yii::$app->user->id, $client);
+//             }
         }
     }
 

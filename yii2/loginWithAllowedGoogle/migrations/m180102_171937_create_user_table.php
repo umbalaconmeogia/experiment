@@ -18,8 +18,12 @@ class m180102_171937_create_user_table extends Migration
             'auth_key' => $this->string(32)->notNull(),
             'password_hash' => $this->string()->notNull(),
             'password_reset_token' => $this->string()->unique(),
+
+            'data_status' => $this->smallInteger()->defaultValue(1),
             'created_at' => $this->integer(),
+            'created_by' => $this->integer(),
             'updated_at' => $this->integer(),
+            'updated_by' => $this->integer(),
         ]);
     }
 

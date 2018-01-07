@@ -17,14 +17,14 @@ use Yii;
  *
  * @property Auth[] $auths
  */
-class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
+class User extends BaseAppModel implements \yii\web\IdentityInterface
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'user';
+        return '{{%user}}';
     }
 
     /**
@@ -80,6 +80,19 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public static function findIdentityByAccessToken($token, $type = null)
     {
         throw new NotSupportedException('Method "' . __CLASS__ . '::' . __METHOD__ . '" is not implemented.');
+    }
+
+    /**
+     * Finds user by username
+     *
+     * @param string $username
+     * @return static|null
+     */
+    public static function findByUsername($username)
+    {
+        return static::find()->where(['username' => $username])
+          ->andWhere(['<>', 'data_status', self::DATA_STATUS_DELETE])
+          ->one();
     }
 
     /**
@@ -149,5 +162,24 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public function removePasswordResetToken()
     {
         $this->password_reset_token = null;
+    }
+
+    /**
+     * Set auth_key and password_reset_token if empty.
+     * {@inheritDoc}
+     * @see \yii\base\Model::beforeValidate()
+     */
+    public function beforeValidate()
+    {
+        if (!$this->auth_key) {
+            $this->generateAuthKey();
+        }
+        if (!$this->password_hash) {
+            $this->password = Yii::$app->security->generateRandomString(6);
+        }
+        if (!$this->password_reset_token) {
+            $this->generatePasswordResetToken();
+        }
+        return parent::beforeValidate();
     }
 }

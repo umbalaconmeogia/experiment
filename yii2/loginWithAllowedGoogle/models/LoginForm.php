@@ -19,6 +19,23 @@ class LoginForm extends Model
 
     private $_user = false;
 
+    public function behaviors()
+    {
+        $behaviors = parent::behaviors();
+
+        $behaviors[] = [
+            'class' => '\giannisdag\yii2CheckLoginAttempts\behaviors\LoginAttemptBehavior',
+
+            // Amount of attempts in the given time period
+            'attempts' => 2,
+
+            // the attribute used as the key in the database
+            // and add errors to
+            'usernameAttribute' => 'username',
+        ];
+
+        return $behaviors;
+    }
 
     /**
      * @return array the validation rules.
