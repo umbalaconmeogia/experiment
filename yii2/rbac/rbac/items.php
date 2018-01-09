@@ -12,6 +12,7 @@ return [
         'type' => 1,
         'children' => [
             'createPost',
+            'updateOwnPost',
         ],
     ],
     'admin' => [
@@ -19,6 +20,14 @@ return [
         'children' => [
             'updatePost',
             'author',
+        ],
+    ],
+    'updateOwnPost' => [
+        'type' => 2,
+        'description' => 'Update own post',
+        'ruleName' => 'isAuthor',
+        'children' => [
+            'updatePost',
         ],
     ],
 ];
