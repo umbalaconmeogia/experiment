@@ -9,9 +9,12 @@ $config = [
     'bootstrap' => ['log'],
     'controllerNamespace' => 'app\commands',
 	'modules' => [
+		'user' => [
+			'class' => 'yii2mod\user\ConsoleModule',
+		],
 		'rbac' => [
 			'class' => 'yii2mod\rbac\ConsoleModule'
-		]
+		],
 	],
     'components' => [
         'authManager' => [
@@ -30,6 +33,18 @@ $config = [
             ],
         ],
         'db' => $db,
+        'i18n' => [
+            'translations' => [
+                'yii2mod.rbac' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@yii2mod/rbac/messages',
+                ],
+                'yii2mod.user' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@yii2mod/user/messages',
+                ],
+            ],
+        ],
     ],
     'params' => $params,
     /*

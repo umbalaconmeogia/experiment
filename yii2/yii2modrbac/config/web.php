@@ -28,10 +28,13 @@ $config = [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
-        'user' => [
-            'identityClass' => 'app\models\User',
-            'enableAutoLogin' => true,
-        ],
+		'user' => [
+			'identityClass' => 'yii2mod\user\models\UserModel',
+			// for update last login date for user, you can call the `afterLogin` event as follows
+			'on afterLogin' => function ($event) {
+				$event->identity->updateLastLogin();
+			}
+		],
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
@@ -58,7 +61,10 @@ $config = [
                     'class' => 'yii\i18n\PhpMessageSource',
                     'basePath' => '@yii2mod/rbac/messages',
                 ],
-                // ...
+                'yii2mod.user' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@yii2mod/user/messages',
+                ],
             ],
         ],
         /*

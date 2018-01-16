@@ -51,6 +51,21 @@ class SiteController extends Controller
                 'class' => 'yii\captcha\CaptchaAction',
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ],
+            'login' => [
+                'class' => 'yii2mod\user\actions\LoginAction'
+            ],
+            'logout' => [
+                'class' => 'yii2mod\user\actions\LogoutAction'
+            ],
+            'signup' => [
+                'class' => 'yii2mod\user\actions\SignupAction'
+            ],
+            'request-password-reset' => [
+                'class' => 'yii2mod\user\actions\RequestPasswordResetAction'
+            ],
+            'password-reset' => [
+                'class' => 'yii2mod\user\actions\PasswordResetAction'
+            ],
         ];
     }
 

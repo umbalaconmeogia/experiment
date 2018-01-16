@@ -19,7 +19,8 @@
         "yiisoft/yii2-bootstrap": "~2.0.0",
         "yiisoft/yii2-swiftmailer": "~2.0.0",
 		"yii2mod/yii2-rbac": "*",
-		"umbalaconmeogia/yii2-batsg": "*"
+		"umbalaconmeogia/yii2-batsg": "*",
+        "yii2mod/yii2-user": "^2.1"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

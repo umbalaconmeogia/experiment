@@ -27,39 +27,7 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
 
 <div class="wrap">
-    <?php
-    NavBar::begin([
-        'brandLabel' => Yii::$app->name,
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
-        ],
-    ]);
-	$items = [
-            ['label' => 'RbacIndex', 'url' => ['/rbac']],
-            ['label' => 'RbacRoute', 'url' => ['/rbac/route']],
-            ['label' => 'RbacPermission', 'url' => ['/rbac/permission']],
-            ['label' => 'RbacRole', 'url' => ['/rbac/role']],
-            ['label' => 'RbacAssignment', 'url' => ['/rbac/assignment']],
-	];
-	if (Yii::$app->user->isGuest) {
-		$items[] = ['label' => 'Login', 'url' => ['/site/login']];
-	} else {
-		$items[] = '<li>'
-                . Html::beginForm(['/site/logout'], 'post')
-                . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link logout']
-                )
-                . Html::endForm()
-                . '</li>';
-	}
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => $items,
-    ]);
-    NavBar::end();
-    ?>
+    <?= $this->render('_menu') ?>
 
     <div class="container">
         <?= Breadcrumbs::widget([
