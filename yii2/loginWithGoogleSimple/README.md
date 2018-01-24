@@ -8,7 +8,7 @@ I use the basic template of yii2 2.0.13 to create this example.
 
 ## Create Google credential and enable Google+ API
 
-Register the Google Client ID for Web Application and enable the Google+ API for it.
+Register the Google Client ID for Web Application and enable the Google+ API for it at <a href="https://console.developers.google.com/apis/">Google API Console</a>
 
 | Item | Value |
 | --- | --- |
