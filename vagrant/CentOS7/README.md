@@ -17,3 +17,11 @@ $ vagrant up
 ```shell
 $ vagrant ssh
 ```
+
+## Reload provision
+
+After update provision in Vagrantfile, reload it.
+
+```shell
+$ vagrant provision
+```
