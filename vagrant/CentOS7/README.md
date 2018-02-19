@@ -11,6 +11,9 @@ $ vagrant up
 
 ## Install vagrant-vbguest so that it can sync between the VM and windows.
 
+```shell
+vagrant plugin install vagrant-vbguest
+```
 [Reference](https://stackoverflow.com/questions/46318456/files-created-in-vagrant-centos-7-do-not-appear-in-windows)
 
 ## ssh into the box
