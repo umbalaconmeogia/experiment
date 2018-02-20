@@ -4,7 +4,7 @@
 This is Vagrant file to
 
 * Create a plain CentOS 7 machine.
-* Make the /vagrant directory on the CentOS guess synchronize with the Vagrant directory on the Windows host.
+* Make the /vagrant directory on the CentOS guest synchronize with the Vagrant directory on the Windows host.
 
 Other note
 

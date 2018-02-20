@@ -4,9 +4,9 @@
 This is Vagrant file to
 
 * Create a CentOS 7 machine with Apache, MySQL, Postgres, PHP installed.
-* Make the /vagrant directory on the CentOS guess synchronize with the Vagrant directory on the Windows host.
-* Set the port forwarding so that you can access to Apache web server on the CentOS guess from the Windows host (by access to http://localhost:8080 for example)
-* On the CentOS guess, make the apache web root directory (`/var/www/html`) link to `/vagrant` so that you can easily update the web content by modify file on Windows host.
+* Make the /vagrant directory on the CentOS guest synchronize with the Vagrant directory on the Windows host.
+* Set the port forwarding so that you can access to Apache web server on the CentOS guest from the Windows host (by access to http://localhost:8080 for example)
+* On the CentOS guest, make the apache web root directory (`/var/www/html`) link to `/vagrant` so that you can easily update the web content by modify file on Windows host.
 
 Other note
 
