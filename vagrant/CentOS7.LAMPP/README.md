@@ -43,6 +43,26 @@ $ getenforce
 Disabled
 ```
 
+## Reset MySQL password
+
+* Get the temporary password of `root@localhost` account
+```shell
+$ sudo grep 'temporary password' /var/log/mysqld.log
+```
+* Use this password to login to MySQL
+```shell
+$ mysql -u root -p
+```
+* Change root password
+```
+> ALTER USER 'root'@'localhost' IDENTIFIED BY 'MyNewPass4!';
+```
+* Clear root password <aside class="warning">(use this for development environment only)</aside>
+```
+> UNINSTALL PLUGIN validate_password;
+> ALTER USER 'root'@'localhost' IDENTIFIED BY '';
+```
+
 ## Another command
 
 ### ssh into the Vagrant box
