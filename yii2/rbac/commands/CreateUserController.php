@@ -16,6 +16,7 @@ class CreateUserController extends Controller
             $user = User::findOneCreateNew([
                 'username' => $name,
             ]);
+            $user->password = $name;
             $user->save();
         }
     }

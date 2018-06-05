@@ -35,25 +35,36 @@ AppAsset::register($this);
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
+    $items = [
+        ['label' => 'Home', 'url' => ['/site/index']],
+        ['label' => 'About', 'url' => ['/site/about']],
+        ['label' => 'Contact', 'url' => ['/site/contact']],
+    ];
+    $items[] = [
+        'label' => 'rbac',
+        'items' => [
+            ['label' => 'index', 'url' => ['/rbac/']],
+            ['label' => 'route', 'url' => ['/rbac/route']],
+            ['label' => 'permission', 'url' => ['/rbac/permission']],
+            ['label' => 'role', 'url' => ['/rbac/role']],
+            ['label' => 'assignment', 'url' => ['/rbac/assignment']],
+        ],
+    ];
+    if (Yii::$app->user->isGuest) {
+        $items[] = ['label' => 'Login', 'url' => ['/site/login']];
+    } else {
+        $items[] = '<li>'
+        . Html::beginForm(['/site/logout'], 'post')
+        . Html::submitButton(
+            'Logout (' . Yii::$app->user->identity->username . ')',
+            ['class' => 'btn btn-link logout']
+            )
+            . Html::endForm()
+            . '</li>';
+    }
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
-            Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
-            ) : (
-                '<li>'
-                . Html::beginForm(['/site/logout'], 'post')
-                . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link logout']
-                )
-                . Html::endForm()
-                . '</li>'
-            )
-        ],
+        'items' => $items,
     ]);
     NavBar::end();
     ?>

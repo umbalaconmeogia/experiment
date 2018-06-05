@@ -2,7 +2,8 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'pgsql:host=localhost;dbname=yii2rbac',
+    'dsn' => 'sqlite:@app/../../../secure/yii2rbac/yii2rbac.sqlite',
+//     'dsn' => 'pgsql:host=localhost;dbname=yii2rbac',
     'username' => 'yii2rbac',
     'password' => 'yii2rbac',
     'charset' => 'utf8',

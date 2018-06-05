@@ -8,13 +8,22 @@ $config = [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'app\commands',
+    'modules' => [
+        'rbac' => [
+            'class' => 'yii2mod\rbac\ConsoleModule'
+        ],
+    ],
     'components' => [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
         'authManager' => [
-            'class' => 'yii\rbac\PhpManager',
+            'class' => 'yii\rbac\DbManager',
+            'defaultRoles' => ['guest', 'user'],
         ],
+//         'authManager' => [
+//             'class' => 'yii\rbac\PhpManager',
+//         ],
         'log' => [
             'targets' => [
                 [
