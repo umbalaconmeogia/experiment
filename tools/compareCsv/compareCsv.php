@@ -59,7 +59,7 @@ class ReadFile
 
 class CompareCsv
 {
-	public static $debug = TRUE;
+	public static $debug = FALSE;
 	
 	private $keyValues;
 
@@ -86,7 +86,7 @@ class CompareCsv
 				print_r($this->keyValues);
 			}
 			// Clear $keyValues if two rooms are set.
-			if ($this->keyValues[$key][0] !== FALSE && $this->keyValues[$key][1] !== FALSE) {
+			if ($this->keyValues[$key][0] == $this->keyValues[$key][1] && $this->keyValues[$key][0] !== FALSE) {
 				unset($this->keyValues[$key]);
 				if (self::$debug) {
 					echo "Clear keyValue of key $key\n";
@@ -108,9 +108,12 @@ class CompareCsv
 		
 		$file1->close();
 		$file2->close();
-		if (self::$debug) {
-			echo "End\n";
+	
+		if (count($this->keyValues)) {
+			echo "The two CSV files are different.\n";
 			print_r($this->keyValues);
+		} else {
+			echo "The two CSV files are equal.\n";
 		}
 	}
 }
