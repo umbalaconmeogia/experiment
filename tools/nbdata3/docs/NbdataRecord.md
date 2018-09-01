@@ -8,7 +8,7 @@ For empty record, record 1, 2 are FF FF
 * Byte 1-2: Face (231~238 for male Ruler, 239~246 for female Ruler,
   247-276 for male Officer, 277~306 for female officer)
 * Byte 3: Zero
-* Byte 4: Sex (0: Female, 1: Male)
+* Byte 4: Gender (0: Female, 1: Male)
 * Byte 5: ArC
 * Byte 6: NaC
 * Byte 7: War
@@ -20,6 +20,3 @@ For empty record, record 1, 2 are FF FF
 * Byte 13: Age
 * Byte 14-25 (12 bytes): Name
 * Byte 26-28: Zero.
-
-Byte 1: Face
-15-50 for female officer.
