@@ -18,8 +18,8 @@ class Officer extends Model
     const FACE_OFFICER_FEMALE_MIN = 277;
     const FACE_OFFICER_FEMALE_MAX = 306;
     
-    const GENDER_FEMALE = 0;
-    const GENDER_MALE = 1;
+    const GENDER_FEMALE = 1;
+    const GENDER_MALE = 0;
     
     public $face;
     

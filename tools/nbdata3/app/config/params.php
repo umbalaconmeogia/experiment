@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'nbdataFile' => '@app\data\NBDATA.DAT',
+    'nbdataFile' => '@app/data/NBDATA.DAT',
 	
 ];
