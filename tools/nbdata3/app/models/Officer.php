@@ -20,22 +20,24 @@ class Officer extends Model
     
     const GENDER_FEMALE = 1;
     const GENDER_MALE = 0;
+	
+	const ABILITY_DEFAULT = 100;
     
     public $face;
     
     public $gender;
     
-    public $abilityArC = 0xFF;
+    public $abilityArC = self::ABILITY_DEFAULT;
     
-    public $abilityNaC = 0xFF;
+    public $abilityNaC = self::ABILITY_DEFAULT;
     
-    public $abilityWar = 0xFF;
+    public $abilityWar = self::ABILITY_DEFAULT;
     
-    public $abilityInt = 0xFF;
+    public $abilityInt = self::ABILITY_DEFAULT;
     
-    public $abilityPol = 0xFF;
+    public $abilityPol = self::ABILITY_DEFAULT;
     
-    public $abilityCha = 0xFF;
+    public $abilityCha = self::ABILITY_DEFAULT;
     
     public $birthMonth;
     
