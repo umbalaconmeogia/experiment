@@ -33,7 +33,7 @@ class User extends BaseAppModel implements \yii\web\IdentityInterface
     public function rules()
     {
         return [
-            [['username', 'auth_key', 'password_hash'], 'required'],
+            [['username', 'email'], 'required'],
             [['created_at', 'updated_at'], 'integer'],
             [['username', 'password_hash', 'password_reset_token'], 'string', 'max' => 255],
             [['auth_key'], 'string', 'max' => 32],

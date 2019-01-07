@@ -23,6 +23,7 @@ $items = [
     [
         'label' => 'user',
         'items' => [
+            ['label' => 'List', 'url' => ['/user/index']],
             ['label' => 'Login', 'url' => ['/site/login']],
             ['label' => 'Logout', 'url' => ['/site/logout']],
             ['label' => 'Signup', 'url' => ['/site/signup']],

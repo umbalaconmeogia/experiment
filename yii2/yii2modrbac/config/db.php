@@ -3,8 +3,9 @@
 return [
     'class' => 'yii\db\Connection',
     'dsn' => 'sqlite:@app/data/yii2modrbac.sqlite',
-    'username' => 'root',
-    'password' => '',
+	'dsn' => 'pgsql:host=localhost;dbname=yii2mod_demo',
+    'username' => 'yii2mod_demo',
+    'password' => 'yii2mod_demo',
     'charset' => 'utf8',
 
     // Schema cache options (for production environment)

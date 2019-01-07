@@ -20,7 +20,8 @@
         "yiisoft/yii2-swiftmailer": "~2.0.0",
 		"yii2mod/yii2-rbac": "*",
 		"umbalaconmeogia/yii2-batsg": "*",
-        "yii2mod/yii2-user": "^2.1"
+        "yii2mod/yii2-user": "^2.1",
+        "yii2mod/yii2-comments": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

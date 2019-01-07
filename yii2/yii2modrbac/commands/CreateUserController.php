@@ -6,6 +6,10 @@ use yii\console\Controller;
 
 class CreateUserController extends Controller
 {
+	/**
+	 * Syntax:
+	 * ./yii create-user
+	 */
     public function actionIndex()
     {
         $names = [
@@ -15,6 +19,7 @@ class CreateUserController extends Controller
         foreach ($names as $name) {
             $user = User::findOneCreateNew([
                 'username' => $name,
+				'email' => "$name@example.com",
             ]);
             $user->password = $name;
             $user->save();

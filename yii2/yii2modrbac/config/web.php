@@ -15,6 +15,9 @@ $config = [
         'rbac' => [
             'class' => 'yii2mod\rbac\Module',
         ],
+		'comment' => [
+			'class' => 'yii2mod\comments\Module',
+		],
     ],
     'components' => [
         'authManager' => [
@@ -64,6 +67,10 @@ $config = [
                 'yii2mod.user' => [
                     'class' => 'yii\i18n\PhpMessageSource',
                     'basePath' => '@yii2mod/user/messages',
+                ],
+                'yii2mod.comments' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@yii2mod/comments/messages',
                 ],
             ],
         ],
