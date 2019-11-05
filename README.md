@@ -2,7 +2,7 @@
 
 ## MsProject
 
-[Ms Project](otherSoft\MsProjectTip)
+[Ms Project](otherSoft/MsProjectTip)
 
 ## Test
 
