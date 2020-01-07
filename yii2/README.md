@@ -28,3 +28,12 @@
       Employee::EMPLOYEE_SUPERVISOR,
   ]]);
   ```
+
+  ## View
+
+  ### Change favicon by another image (not default favicon.ico)
+
+  In layout file, add to *head* part
+  ```html
+  <link rel="shortcut icon" type="image/png" href="favicon.png"/>
+  ```
