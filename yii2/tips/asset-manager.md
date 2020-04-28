@@ -16,7 +16,7 @@ Mỗi khi update file css, js, browser có thể sẽ không load lại nội du
 
 ## Cache Busting
 
-Cache busting là thêm một tham số `v=datetime` vào TẤT CẢ link tới file css/js được quản lý bởi Asset manager.
+Cache busting là thêm một tham số `v=timestamp` vào TẤT CẢ link tới file css/js được quản lý bởi Asset manager (timestamp là thời gian update của từng file).
 Để làm việc này, ta set `appendTimestamp` trong file config như sau:
 ```php
 return [
@@ -31,7 +31,7 @@ return [
 
 ## Asset Publishing
 
-Asset publishing khiến cho yii publish toàn bộ một thư mục (asset bundle) vào trong thư mục @web/assets mỗi khi date time của thư mục asset bundle bị thay đổi. Chúng ta thường thấy trong thư mục @web/assets/ có các thư mục con có tên là các chuỗi ngẫu nhiên. Đây chính là do chúng được published.
+Asset publishing khiến cho yii publish toàn bộ một thư mục (asset bundle) vào trong thư mục @web/assets mỗi khi date time của thư mục asset bundle bị thay đổi. Chúng ta thường thấy trong thư mục @web/assets/ có các thư mục con có tên là các chuỗi loằng ngoằng (chuỗi đó được sinh ra dựa trên thư mục bundle và ngày tháng của nó). Đây chính là do chúng được published.
 
 Để dùng Asset publishing, trong asset bundle class, chúng ta khai báo `$sourcePath` (thư mục asset bundle) và không khai báo `$basePath`.
 
