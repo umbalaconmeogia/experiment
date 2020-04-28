@@ -41,6 +41,11 @@ Asset publishing thường được sử dụng trong các extension. Khi chúng
 
 Dùng Asset publishing cho các file css, js của application không hiệu quả. Lí do là ngay cả khi ta update ngày tháng của asset bundle directory thì git cũng không thay đổi điều đó trên repository, khiến cho thư mục đó không có gì thay đổi trên các máy khác.
 
+## Note
+
+Trước đây với yii 1.1, mình đã từng extend class AssetBundle để nó publish lại bundle mỗi khi có thay đổi 1 trong số các file trong bundle.
+Nhưng điều này đòi hỏi mỗi lần chạy chương trình nó sẽ phải check lại các file đó, không rõ có vấn đề về performance nhiều không.
+
 ## References
 
 * [Asset Publishing](https://www.yiiframework.com/doc/guide/2.0/en/structure-assets#asset-publishing)
