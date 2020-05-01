@@ -1,7 +1,7 @@
 
 ## Generate parameter like modelName[attributeName]=value in GET url
 
-Use Html::getInputName() to generate parameter name.
+Use `Html::getInputName()` to generate parameter name.
 
 Example
 ```php
@@ -25,7 +25,7 @@ Search model
 public function search($params)
 {
         // some code here
-        
+
         // Convert from yyyy-mm (input from form) to yyyy-mm-01
         // TODO: I feel that this is nogood to put this code here.
         if (!$this->month) {
@@ -33,7 +33,7 @@ public function search($params)
         if (substr_count($this->month, '-') == 1) {
             $this->month = "{$this->month}-01";
         }
-        
+
         // some code here
 }
 ```
