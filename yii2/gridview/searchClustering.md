@@ -6,6 +6,8 @@ One example of this data is the way Yii store i18n translate message in `message
 
 Now we want to use these attributes info in Employee horizontally.
 
+![Employee list](images/EmployeeList.png)
+
 The point is we create a variable `Employee#employeeInfoValues` which is an array, to store EmployeeInfo value.
 We can access to every EmployeeInfo value via `Employee#employeeInfoValues`, use `Employee#employeeInfoValues` to
 * Generate form fields and receive input from form.
