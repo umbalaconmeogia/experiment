@@ -50,6 +50,12 @@ class DepartmentSearch extends Department
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+        $dataProvider->sort->attributes['managerName'] = [
+            // The tables are the ones our relation are configured to
+            // in my case they are prefixed with "tbl_"
+            'asc' => ['mang.name' => SORT_ASC],
+            'desc' => ['mang.name' => SORT_DESC],
+        ];
 
         $this->load($params);
 

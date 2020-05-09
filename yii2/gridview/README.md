@@ -30,9 +30,26 @@ In GridView that showing data of Department, we want to allow searching with dep
     }
   ```
 
-## Search for clustering external join table attributes
-
 ## Sort for external attributes
+  ```php
+    class DepartmentSearch extends Department
+    {
+        public function search($params)
+        {
+            // Other process
+            $dataProvider->sort->attributes['managerName'] = [
+                // The tables are the ones our relation are configured to
+                // in my case they are prefixed with "tbl_"
+                'asc' => ['mang.name' => SORT_ASC],
+                'desc' => ['mang.name' => SORT_DESC],
+            ];
+            // Other process
+        }
+
+    }
+  ```
+
+## Search for clustering external join table attributes
 
 ## Example code
 
