@@ -4,6 +4,8 @@
 
 In GridView that showing data of Department, we want to allow searching with department manager's name.
 
+![Department list](images/DepartmentList.png)
+
 * In DepartmentSearch, adding safe attribute $managerName, and add it to search condition.
   ```php
     class DepartmentSearch extends Department
@@ -53,6 +55,8 @@ In GridView that showing data of Department, we want to allow searching with dep
 
 ## Example code
 
+Example code is put in `example_app` directory.
+
 ### Prequisite
 
 This example code is deveoped based on yii-basic-app-2.0.35 template.
@@ -67,7 +71,7 @@ composer install
 ### DB design
 
 Database structure
-![ERD](example_design/GridViewExample.png)
+![ERD](images/GridViewExample.png)
 
 Example of data
-![Data Sample](example_design/GridViewExampleData.png)
+![Data Sample](images/GridViewExampleData.png)
