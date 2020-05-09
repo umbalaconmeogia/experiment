@@ -1,5 +1,6 @@
 <?php
 
+use app\models\EmployeeInfo;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -10,6 +11,16 @@ $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Employees'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
+$attributes = [
+    'name',
+    [
+        'attribute' => 'department_id',
+        'value' => $model->department_id ? $model->department->name : NULL,
+    ],
+];
+foreach ($model->employeeInfos as $employeeInfo){
+    $attributes[] = ['label' => $employeeInfo->codeStr, 'value' => $employeeInfo->valueStr];
+}
 ?>
 <div class="employee-view">
 
@@ -28,11 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= DetailView::widget([
         'model' => $model,
-        'attributes' => [
-            'id',
-            'name',
-            'department_id',
-        ],
+        'attributes' => $attributes,
     ]) ?>
 
 </div>

@@ -13,8 +13,8 @@ use yii\helpers\ArrayHelper;
  * @property string $code
  * @property string|null $value
  *
- * @return string $codeStr
- * @return string $genderStr Get gender name (incase this record store gender infor)
+ * @return string $codeStr Get human readable name of code.
+ * @return string $valueStr Get human readable name of value.
  */
 class EmployeeInfo extends \yii\db\ActiveRecord
 {
@@ -79,22 +79,44 @@ class EmployeeInfo extends \yii\db\ActiveRecord
     }
 
     /**
+     * Get label of specified $code.
+     * @param string $code
+     * @return string
+     */
+    public static function codeLabel($code)
+    {
+        return self::codeOptionArr()[$code];
+    }
+
+    /**
+     * @return string[]
+     */
+    public static function codes()
+    {
+        return array_keys(self::codeOptionArr());
+    }
+
+    /**
      * @return string[]
      */
     public static function genderOptionArr()
     {
         return [
-            self::CODE_BIRTH_DATE => Yii::t('app', 'Birth date'),
-            self::CODE_ADDRESS => Yii::t('app', 'Address'),
-            self::CODE_GENDER => Yii::t('app', 'Gender'),
+            self::GENDER_MALE => Yii::t('app', 'Male'),
+            self::GENDER_FEMALE => Yii::t('app', 'Female'),
         ];
     }
 
     /**
      * @return string
      */
-    public function getGenderStr()
+    public function getValueStr()
     {
-        return ArrayHelper::getValue(self::genderOptionArr(), $this->value);
+        if ($this->code == self::CODE_GENDER) {
+            $result = ArrayHelper::getValue(self::genderOptionArr(), $this->value);
+        } else {
+            $result = $this->value;
+        }
+        return $result;
     }
 }

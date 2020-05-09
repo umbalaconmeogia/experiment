@@ -54,7 +54,13 @@ class EmployeeSearch extends Employee
      */
     public function search($params)
     {
-        $query = EmployeeSearch::find()->joinWith('department');
+        $query = EmployeeSearch::find()->joinWith('department')->with('employeeInfos');
+
+        // Join with EmployeeInfo horizontally.
+        $infoCodes = EmployeeInfo::codes();
+        foreach ($infoCodes as $code) {
+            $query->leftJoin("employee_info $code", "{$code}.employee_id = employee.id AND {$code}.code = :code", ['code' => $code]);
+        }
 
         // add conditions that should always apply here
 
@@ -84,6 +90,13 @@ class EmployeeSearch extends Employee
 
         $query->andFilterWhere(['like', 'employee.name', $this->name]);
         $query->andFilterWhere(['like', 'department.name', $this->departmentName]);
+
+        // Add search condition of EmployeeInfo
+        foreach ($infoCodes as $code) {
+            if (isset($this->employeeInfoValues[$code])) {
+                $query->andFilterWhere(['like', "{$code}.value", $this->employeeInfoValues[$code]]);
+            }
+        }
 
         return $dataProvider;
     }

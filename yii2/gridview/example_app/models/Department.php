@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "department".
@@ -62,5 +63,26 @@ class Department extends \yii\db\ActiveRecord
     public function getManager()
     {
         return $this->hasOne(Employee::className(), ['id' => 'manager_id']);
+    }
+
+    /**
+     * Also clear department of Employee that belongs to this Department.
+     * {@inheritdoc}
+     */
+    public function beforeDelete()
+    {
+        $result = parent::beforeDelete();
+
+        if ($result) {
+            // Clear all Department's manager that is this Employee.
+            Employee::updateAll(['department_id' => NULL], ['department_id' => $this->id]);
+        }
+
+        return $result;
+    }
+
+    public static function allDepartmentOptionArr()
+    {
+        return ArrayHelper::map(self::find()->all(), 'id', 'name');
     }
 }

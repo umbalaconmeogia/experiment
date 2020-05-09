@@ -6,6 +6,7 @@ use app\models\Employee;
 use app\models\EmployeeInfo;
 use batsg\helpers\HDateTime;
 use batsg\models\BaseModel;
+use Yii;
 use yii\console\Controller;
 
 class DataController extends Controller
@@ -19,9 +20,11 @@ class DataController extends Controller
      */
     public function actionSample()
     {
-        for ($departmentIndex = 1; $departmentIndex <= 40; $departmentIndex++) {
-            $this->createDepartment($departmentIndex);
-        }
+        Yii::$app->db->transaction(function() {
+            for ($departmentIndex = 1; $departmentIndex <= 40; $departmentIndex++) {
+                $this->createDepartment($departmentIndex);
+            }
+        });
     }
 
     /**
@@ -87,7 +90,7 @@ class DataController extends Controller
         // Create address
         BaseModel::findSetAttr([
             'employee_id' => $employee->id,
-            'code' => EmployeeInfo::CODE_GENDER,
+            'code' => EmployeeInfo::CODE_ADDRESS,
             'value' => "$houseNumber Nottingham street, Palo Alto, CA",
         ], ['employee_id', 'code'], TRUE, EmployeeInfo::class);
     }
