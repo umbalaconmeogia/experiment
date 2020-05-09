@@ -51,10 +51,10 @@ class EmployeeInfo extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'employee_id' => 'Employee ID',
-            'code' => 'Code',
-            'value' => 'Value',
+            'id' => Yii::t('app', 'ID'),
+            'employee_id' => Yii::t('app', 'Employee'),
+            'code' => Yii::t('app', 'Code'),
+            'value' => Yii::t('app', 'Value'),
         ];
     }
 

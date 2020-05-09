@@ -39,9 +39,9 @@ class Employee extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'name' => 'Name',
-            'department_id' => 'Department',
+            'id' => Yii::t('app', 'ID'),
+            'name' => Yii::t('app', 'Name'),
+            'department_id' => Yii::t('app', 'Department'),
         ];
     }
 

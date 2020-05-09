@@ -42,9 +42,9 @@ class Department extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'name' => 'Name',
-            'manager_id' => 'Manager',
+            'id' => Yii::t('app', 'ID'),
+            'name' => Yii::t('app', 'Name'),
+            'manager_id' => Yii::t('app', 'Manager'),
         ];
     }
 

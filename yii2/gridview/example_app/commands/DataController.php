@@ -19,7 +19,7 @@ class DataController extends Controller
      */
     public function actionSample()
     {
-        for ($departmentIndex = 1; $departmentIndex <= 3; $departmentIndex++) {
+        for ($departmentIndex = 1; $departmentIndex <= 40; $departmentIndex++) {
             $this->createDepartment($departmentIndex);
         }
     }
@@ -32,7 +32,7 @@ class DataController extends Controller
     {
         $department = BaseModel::findOneCreateNew(['name' => "Department $departmentIndex"], TRUE, Department::class);
         $manager = FALSE;
-        for ($employeeIndex = 1; $employeeIndex <= 3; $employeeIndex++) {
+        for ($employeeIndex = 1; $employeeIndex <= 40; $employeeIndex++) {
             $employee = $this->createEmployee($department, $departmentIndex, $employeeIndex);
             if (!$manager) {
                 $manager = $employee;
