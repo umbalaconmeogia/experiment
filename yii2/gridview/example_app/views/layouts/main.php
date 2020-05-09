@@ -38,8 +38,8 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Department', 'url' => ['/department/index']],
-            ['label' => 'Employee', 'url' => ['/employee/index']],
+            ['label' => Yii::t('app', 'Department'), 'url' => ['/department/index']],
+            ['label' => Yii::t('app', 'Employee'), 'url' => ['/employee/index']],
         ],
     ]);
     NavBar::end();

@@ -5,6 +5,7 @@ namespace app\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Department;
+use Yii;
 
 /**
  * DepartmentSearch represents the model behind the search form of `app\models\Department`.
@@ -35,6 +36,16 @@ class DepartmentSearch extends Department
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
+        return array_merge(parent::attributeLabels(), [
+            'managerName' => Yii::t('app', 'Manager name'),
+        ]);
+    }
+
+    /**
      * Creates data provider instance with search query applied
      *
      * @param array $params
@@ -43,7 +54,7 @@ class DepartmentSearch extends Department
      */
     public function search($params)
     {
-        $query = Department::find()->joinWith('manager mang');
+        $query = DepartmentSearch::find()->joinWith('manager mang');
 
         // add conditions that should always apply here
 

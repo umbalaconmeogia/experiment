@@ -5,6 +5,7 @@ namespace app\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Employee;
+use Yii;
 
 /**
  * EmployeeSearch represents the model behind the search form of `app\models\Employee`.
@@ -35,6 +36,16 @@ class EmployeeSearch extends Employee
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
+        return array_merge(parent::attributeLabels(), [
+            'departmentName' => Yii::t('app', 'Department name'),
+        ]);
+    }
+
+    /**
      * Creates data provider instance with search query applied
      *
      * @param array $params
@@ -43,7 +54,7 @@ class EmployeeSearch extends Employee
      */
     public function search($params)
     {
-        $query = Employee::find()->joinWith('department');
+        $query = EmployeeSearch::find()->joinWith('department');
 
         // add conditions that should always apply here
 
