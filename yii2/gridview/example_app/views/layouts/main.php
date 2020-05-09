@@ -39,7 +39,7 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => 'Department', 'url' => ['/department/index']],
-            ['label' => 'Employee', 'url' => ['/employee/about']],
+            ['label' => 'Employee', 'url' => ['/employee/index']],
         ],
     ]);
     NavBar::end();

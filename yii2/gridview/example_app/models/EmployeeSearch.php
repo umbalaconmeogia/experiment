@@ -11,6 +11,8 @@ use app\models\Employee;
  */
 class EmployeeSearch extends Employee
 {
+    public $departmentName;
+
     /**
      * {@inheritdoc}
      */
@@ -19,6 +21,7 @@ class EmployeeSearch extends Employee
         return [
             [['id', 'department_id'], 'integer'],
             [['name'], 'safe'],
+            [['departmentName'], 'safe'],
         ];
     }
 
@@ -40,13 +43,19 @@ class EmployeeSearch extends Employee
      */
     public function search($params)
     {
-        $query = Employee::find();
+        $query = Employee::find()->joinWith('department');
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+        $dataProvider->sort->attributes['departmentName'] = [
+            // The tables are the ones our relation are configured to
+            // in my case they are prefixed with "tbl_"
+            'asc' => ['department.name' => SORT_ASC],
+            'desc' => ['department.name' => SORT_DESC],
+        ];
 
         $this->load($params);
 
@@ -62,7 +71,8 @@ class EmployeeSearch extends Employee
             'department_id' => $this->department_id,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name]);
+        $query->andFilterWhere(['like', 'employee.name', $this->name]);
+        $query->andFilterWhere(['like', 'department.name', $this->departmentName]);
 
         return $dataProvider;
     }
