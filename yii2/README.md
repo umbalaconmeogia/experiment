@@ -29,11 +29,37 @@
   ]]);
   ```
 
-  ## View
+## View
 
-  ### Change favicon by another image (not default favicon.ico)
+### Change favicon by another image (not default favicon.ico)
 
-  In layout file, add to *head* part
-  ```html
-  <link rel="shortcut icon" type="image/png" href="favicon.png"/>
-  ```
+In layout file, add to *head* part
+```html
+<link rel="shortcut icon" type="image/png" href="favicon.png"/>
+```
+
+## Config
+
+### Log
+
+To export log to app.log and sql.log separately
+```php
+'log' => [
+    'targets' => [
+        [
+            'class' => 'yii\log\FileTarget',
+            'exportInterval' => 1,
+            'levels' => ['error', 'warning', 'info', 'trace'],
+            'logVars' => [],
+            'except' => ['yii\db\*'],
+        ],
+        [
+            'class' => 'yii\log\FileTarget',
+            'levels' => ['error', 'warning', 'info', 'trace'],
+            'logVars' => [],
+            'categories' => ['yii\db\*'],
+            'logFile' => '@app/runtime/logs/sql.log',
+        ],
+    ],
+],
+```
