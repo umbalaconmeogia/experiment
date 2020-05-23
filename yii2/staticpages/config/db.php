@@ -2,8 +2,9 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'sqlite:@app/data/pages.sqlite',
     'dsn' => 'pgsql:host=localhost;dbname=staticpages',
+    'dsn' => 'sqlite:@app/data/staticpages.sqlite.sqlite',
+    'dsn' => 'mysql:host=localhost;dbname=staticpages',
     'username' => 'staticpages',
     'password' => 'staticpages',
     'charset' => 'utf8',

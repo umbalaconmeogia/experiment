@@ -18,7 +18,11 @@
 ## Prepare for MySQL
 
 * Create database
-TBD
+    ```sql
+    CREATE USER staticpages IDENTIFIED BY 'staticpages';
+    CREATE DATABASE staticpages CHARACTER SET UTF8;
+    GRANT ALL PRIVILEGES ON staticpages.* TO 'staticpages';
+    ```
 
 ## Prepare for SQLite
 
