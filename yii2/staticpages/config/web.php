@@ -1,7 +1,5 @@
 <?php
 
-use yii\filters\AccessControl;
-
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
@@ -56,7 +54,7 @@ $config = [
         'db' => $db,
         'urlManager' => [
             'enablePrettyUrl' => true,
-            'showScriptName' => false,
+            // 'showScriptName' => false,
             'rules' => [
                 'pages/<page:[\w-]+>' => 'pages/default/index',
             ],
@@ -76,7 +74,7 @@ $config = [
             'manager' => [
                 'class' => 'bupy7\pages\controllers\ManagerController',
                 'as access' => [
-                    'class' => AccessControl::className(),
+                    'class' => 'yii\filters\AccessControl',
                     'rules' => [
                         [
                             'allow' => true,
@@ -84,7 +82,7 @@ $config = [
                         ],
                     ],
                 ],
-            ],
+             ],
         ],
     ],
     'params' => $params,
