@@ -61,28 +61,30 @@ $config = [
         ],
     ],
     'modules' => [
-        'pages' => 'bupy7\pages\Module',
-        // 'pathToImages' => '@webroot/images',
-        // 'urlToImages' => '@web/images',
-        // 'pathToFiles' => '@webroot/files',
-        // 'urlToFiles' => '@web/files',
-        // 'uploadImage' => true,
-        // 'uploadFile' => true,
-        // 'addImage' => true,
-        // 'addFile' => true,
-        'controllerMap' => [
-            'manager' => [
-                'class' => 'bupy7\pages\controllers\ManagerController',
-                'as access' => [
-                    'class' => 'yii\filters\AccessControl',
-                    'rules' => [
-                        [
-                            'allow' => true,
-                            'roles' => ['admin'],
+        'pages' => [
+            'class' => 'bupy7\pages\Module',
+            // 'pathToImages' => '@webroot/images',
+            // 'urlToImages' => '@web/images',
+            // 'pathToFiles' => '@webroot/files',
+            // 'urlToFiles' => '@web/files',
+            // 'uploadImage' => true,
+            // 'uploadFile' => true,
+            // 'addImage' => true,
+            // 'addFile' => true,
+            'controllerMap' => [
+                'manager' => [
+                    'class' => 'bupy7\pages\controllers\ManagerController',
+                    'as access' => [
+                        'class' => 'yii\filters\AccessControl',
+                        'rules' => [
+                            [
+                                'allow' => true,
+                                'roles' => ['@'],
+                            ],
                         ],
                     ],
                 ],
-             ],
+            ],
         ],
     ],
     'params' => $params,
