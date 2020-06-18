@@ -2,7 +2,7 @@
 
 ## Two way to export a module
 
-1. Use exports command
+1. Use exports command (Export Object)
   ```javascript
   exports.log = {
       console: function(msg) {
@@ -13,8 +13,9 @@
         }
   }
   ```
-2. Use module.exports
+2. Use module.exports (Export Literals)
   ```javascript
+  // Log.js module
   var log = {
       info: function (info) { 
           console.log('Info: ' + info);
@@ -28,12 +29,8 @@
   };
 
   module.exports = log
+  
+  // Usage
+  var myLogModule = require('./Log.js');
+  myLogModule.info('Node.js started');
   ```
-
-## Loading module
-
-```javascript
-var myLogModule = require('./Log.js');
-
-myLogModule.info('Node.js started');
-```
