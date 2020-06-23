@@ -52,3 +52,68 @@ Nhưng cái này không phải là biến được khai báo trong model class, 
 ## Lưu ý
 
 * Dùng update/updateAll khá nguy hiểm. Nếu ta có những xử lý nằm ở `afterSave()` để update các data khác, thì gọi `updateAll()` sẽ khiến các xử lý này không được chạy.
+
+## Document
+
+* Các function cần phải có document giải thích nó làm gì.
+  Có thông tin về parameter trong document, ít nhất là data type type. Trong khả năng có thể thì khai báo luôn data type trong function definition.
+  <details>
+  <summary>Ví dụ</summary>
+
+  ```php
+  /**
+   * Copy data from another employee to this object.
+   * @param Employee $employee
+   * @return Employee $this object.
+   */
+  public function copyEmployee(Employee $source)
+  {
+    $this->attributes = $source->attributes;
+  }
+  ```
+  </details>
+* Có thông tin về class variable trong document, ít nhất là data type.
+  Cái này sẽ có lợi cho IDE trong việc đưa ra code assistance.
+  <details>
+  <summary>Ví dụ</summary>
+
+  ```php
+  /**
+   * Manipulate employee record in DB.
+   */
+  class Employee
+  {
+    /**
+     * Name of employee.
+     * @var string
+     */
+    private $name;
+  }
+  ```
+  </details>
+* Đôi khi, khai báo kiểu của biến trong đoạn code sẽ giúp IDE hỗ trợ (code assistance).
+  <details>
+  <summary>Ví dụ</summary>
+
+  ```php
+  /** @var Employee $employee */
+  $employee = Employee::findOne(['id' => $id]);
+  $employee->status = 1;
+  ```
+  </details>
+* Ở đầu file view, cần phải mô tả các biến được truyền vào file view.
+  <details>
+  <summary>Ví dụ</summary>
+
+  ```php
+  <?php
+  /* @var $this yii\web\View */
+  /* @var $searchModel frontend\models\OrgTeamSearch */
+  /* @var $dataProvider yii\data\ActiveDataProvider */
+  /* @var $viewFlag int */
+
+  // Cách viết dưới đây cho phép lược bỏ việc truyền tham số vào file view (khi muốn dùng default value).
+  // Set default value for $viewFlag
+  $viewFlag = isset($viewFlag) ? $viewFlag : 1;
+  ```
+  </details>
