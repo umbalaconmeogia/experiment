@@ -8,6 +8,63 @@ Tham khảo về coding convention cơ bản ở đây
 * [Coding convention đối với một project PHP](https://viblo.asia/p/coding-convention-doi-voi-mot-project-php-ORNZqNPrl0n)
 * [Coding Conventions và các chuẩn viết code trong PHP](https://viblo.asia/p/coding-conventions-va-cac-chuan-viet-code-trong-php-naQZRbrGZvx)
 
+## MVC
+
+* Không viết xử lý logic trong controller class. Controller chỉ làm 3 việc
+  1. Nhận request parameter (lưu vào biến, model...)
+  2. Gọi các model hoặc helper class để xử lý logic.
+  3. Gọi lệnh render file view (với tham số các model, biến ở bước trên).
+  Đặc biệt tránh mô tả logic xử lý trong các private function của controller.
+* Model chủ yếu dùng để lưu data theo một đối tượng được định nghĩa.
+  Các xử lý có đối tượng là một model nên được viết trong class của model đó, không nên viết ở class bên ngoài.
+  <details>
+  <summary>Ví dụ</summary>
+
+  Nên viết
+  ```php
+  class Department extends Model
+  {
+    // Tính lương của các nhân viên trong bộ phận.
+    public function calculateEmployeesPayraise()
+    {
+      $this->total_payraise = 0;
+      foreach ($this->employees as $employee) {
+        $employee->calcualteMonthlySalary(); // Tính lương của một employee.
+        $this->total_payraise += $employee->monthly_salary;
+      }
+    }
+  }
+
+  class Employee extends Model
+  {
+    public function calcualteMonthlySalary()
+    {
+      // Tính lương.
+      $this->monthly_salary = $this->basic_salary + $this->allowance;
+    }
+  }
+  ```
+
+  Không nên viết như sau:
+  ```php
+  class Department extends Model
+  {
+    // Tính lương của các nhân viên trong bộ phận.
+    public function calculateEmployeesPayraise()
+    {
+      $this->total_payraise = 0;
+      foreach ($this->employees as $employee) {
+        // Không tốt: mang xử lý data của class Employee để trong class Department.
+        $employee->monthly_salary = $employee->basic_salary + $employee->allowance;
+        $this->total_payraise += $employee->monthly_salary;
+      }
+    }
+  }
+  ```
+  Để có thể viết được tốt như trên, luôn luôn phải quán triệt tinh thân lập trình hướng đối tượng, code xử lý data thuộc về một object thì phải đặt trong class của object đó, không viết ở bên ngoài.
+  </details>
+
+
 ## Action
 
 * Sau mỗi POST action, cần phải redirect nếu xử lý thành công (để tránh user ấn F5).
@@ -32,6 +89,7 @@ Function viết các step chính cho việc nó định xử lý. Chi tiết c�
       'b' => 'This is b',
   ];
   ```
+  Điều này sẽ giúp dễ dàng mỗi khi bổ sung phần tử mới vào array (không sợ quên dấu phẩy ở phần tử phía trước), cũng không khiến diff báo dòng phía trước có sự khác biệt.
 
 ## Naming
 
@@ -39,15 +97,32 @@ Function viết các step chính cho việc nó định xử lý. Chi tiết c�
 
 Tên hàm và tên biến phải đặt dễ hiểu. Kể cả đặt dài cũng được.
 Ví dụ:
-* Nếu có một array mapping giữa model id và model object (model là kiểu Car), thì không đặt tên là `$cars` mà nên đặt là `$carId2Object`, sao cho thể hiện rõ đặc trưng của nó. Nếu chỉ là array `$cars` bình thường, thì sẽ hiểu là key của nó không có gì đặc biệt. Nên tham khảo thêm từ quyển craftman.
+* Nếu có một array mapping giữa model id và model object (model là kiểu Car), thì không đặt tên là `$cars` mà nên đặt là `$mapCarId2Objects`, sao cho thể hiện rõ đặc trưng của nó. Nếu chỉ là array `$cars` bình thường, thì sẽ hiểu là key của nó không có gì đặc biệt. Nên tham khảo thêm từ quyển craftman.
 * Nếu có xử lý tên là `Employee::removeEmployees()`, trong khi ta còn có data là `team`, `project` có chứa employees, thì nên ghi tên hàm là `Employee::removeEmployeeFromTeam()` hoặc `Employee::removeEmployeeFromProject()`
 
 ### Tên biến
 
-Tên biến PHP phải dùng theo dạng camel, không được dùng kiểu underscore.
+* Tên biến PHP phải dùng theo dạng camel, không được dùng kiểu underscore.
+  <details>
+  <summary>Ví dụ</summary>
 
-Chú ý là tên instance variable trong model trùng với tên DB column, cái này là kiểu underscore.
-Nhưng cái này không phải là biến được khai báo trong model class, nên vẫn không vi phạm quy tắc tên biến phải là dạng camel.
+  ```php
+  // Nên đặt tên
+  private $employeeName;
+
+  // Không đặt tên
+  private $employee_name;
+  ```
+  </details>
+  Chú ý là tên instance variable trong model trùng với tên DB column, ví dụ `employee_id`, cái này là kiểu underscore.
+  Nhưng cái này không phải là biến được khai báo trong code PHP, nên vẫn không vi phạm quy tắc tên biến phải là dạng camel.
+* Các relation trong ActiveRecord model, nên là dạng camel case của tên DB column.
+  Phần này càng máy móc càng tốt (theo kiểu dùng code generator sinh ra).
+  <details>
+  <summary>Ví dụ</summary>
+
+  Tên db column là `org_team_id`, thì tên hàm relation là `getOrgTeam()` (không nên đặt là `getTeam()`), tên property là `$orgTeam`.
+  </details>
 
 ## Lưu ý
 
