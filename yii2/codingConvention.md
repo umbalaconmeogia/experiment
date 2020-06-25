@@ -15,6 +15,44 @@ Tham khảo về coding convention cơ bản ở đây
   2. Gọi các model hoặc helper class để xử lý logic.
   3. Gọi lệnh render file view (với tham số các model, biến ở bước trên).
   Đặc biệt tránh mô tả logic xử lý trong các private function của controller.
+* Nên bao các xử lý có phát sinh ghi data trong DB vào transaction. Điều này không chỉ giúp rollback lại khi có error, mà còn tăng tốc độ khi một request gọi nhiều SQL query.
+  <details>
+  <summary>Có 2 cách viết transaction</summary>
+
+  Cách viết cơ bản:
+  ```php
+  $transaction = Yii::$app->db->beginTransaction();
+  try {
+      // Code xử lý ở đây.
+
+      $transaction->commit();
+  } catch (\Exception $e) {
+      $transaction->rollBack();
+      // Làm một xử lý gì khác (thay vì throw $e).
+      // Xem ví dụ trong BaseController#defaultActionUpdate()
+  }
+  ```
+
+  Cách viết đơn giản hơn:
+  ```php
+  Yii::$app->db->transaction(function() {
+    // Code xử lý ở đây.
+  });
+  ```
+  Viết kiểu này tương đương với nếu xảy ra Exception, sẽ đơn giản là throw error như code dưới đây.
+  ```php
+  $transaction = Yii::$app->db->beginTransaction();
+  try {
+      // Code xử lý ở đây.
+
+      $transaction->commit();
+  } catch (\Exception $e) {
+      $transaction->rollBack();
+      throw $e;
+  }
+  ```
+
+  </details>
 * Model chủ yếu dùng để lưu data theo một đối tượng được định nghĩa.
   Các xử lý có đối tượng là một model nên được viết trong class của model đó, không nên viết ở class bên ngoài.
   <details>
@@ -68,6 +106,7 @@ Tham khảo về coding convention cơ bản ở đây
 ## Action
 
 * Sau mỗi POST action, cần phải redirect nếu xử lý thành công (để tránh user ấn F5).
+  Ví dụ điển hình là các hàm `actionUpdate()`, `actionCreate()` do gii sinh ra.
 
 ## Space
 
