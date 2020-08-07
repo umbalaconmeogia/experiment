@@ -15,6 +15,15 @@ class EmployeeSearch extends Employee
     public $departmentName;
 
     /**
+     * Set searching pagination.
+     * * If NULL, then use DataProvider default value.
+     * * If FALSE, then get all record without pagination.
+     * * Otherwise, get number of records equals to specified value.
+     * @var int Set pagination.
+     */
+    public $pagination = NULL;
+
+    /**
      * {@inheritdoc}
      */
     public function rules()
@@ -67,6 +76,11 @@ class EmployeeSearch extends Employee
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+
+        if ($this->pagination !== NULL) {
+            $dataProvider->pagination = $this->pagination;
+        }
+
         $dataProvider->sort->attributes['departmentName'] = [
             // The tables are the ones our relation are configured to
             // in my case they are prefixed with "tbl_"

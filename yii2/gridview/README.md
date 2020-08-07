@@ -8,6 +8,27 @@ See [document here](searchExternalName.md)
 
 See [document here](searchClustering.md)
 
+## Search pagination in searching model
+
+In searching model, add `$pagination` attribute to set pagination searching parameter.
+In controller/action (for example), `actionIndex()`, control the pagination.
+Example
+```php
+public function actionIndex()
+{
+    $searchModel = new EmployeeSearch();
+    $searchModel->pagination = FALSE; // For no pagination, then get all record.
+    $searchModel->pagination = NULL; // Get default pagination (equals to 20).
+    $searchModel->paginiation = 50; // Get 50 records per page.
+    $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+    return $this->render('index', [
+        'searchModel' => $searchModel,
+        'dataProvider' => $dataProvider,
+    ]);
+}
+```
+
 ## Example code
 
 Example code is put in `example_app` directory.
