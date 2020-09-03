@@ -38,6 +38,20 @@ In layout file, add to *head* part
 <link rel="shortcut icon" type="image/png" href="favicon.png"/>
 ```
 
+### Posting data via link
+
+```php
+<?= Html::a('Text',
+    ['/controller/action'], [
+    'data-method' => 'POST',
+    'data-params' => [
+        'param1' => 1,
+        'param2' => 2,
+    ],
+]) ?>
+```
+Ref: http://www.prettyscripts.com/code/php/yii2-posting-data-via-link/
+
 ## Config
 
 ### Log

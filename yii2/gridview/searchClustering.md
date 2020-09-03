@@ -76,6 +76,7 @@ We can access to every EmployeeInfo value via `Employee#employeeInfoValues`, use
     }
   ```
 * Use `Employee#employeeInfoValues` in search model
+  ***NOTICE*** The placeholder name affects all the query, so for the query generate by loop code as below, we should make the *$placeholder* different for every subqueries. If not, last parameterbinding will affect all the sub queries.
   ```php
     public function search($params)
     {
@@ -84,7 +85,8 @@ We can access to every EmployeeInfo value via `Employee#employeeInfoValues`, use
         // Join with EmployeeInfo horizontally.
         $infoCodes = EmployeeInfo::codes();
         foreach ($infoCodes as $code) {
-            $query->leftJoin("employee_info $code", "{$code}.employee_id = employee.id AND {$code}.code = :code", ['code' => $code]);
+            $placeHolder = "code_{$code}";
+            $query->leftJoin("employee_info $code", "{$code}.employee_id = employee.id AND {$code}.code = :$placeHolder", [$placeHolder => $code]);
         }
         // other stuff
 

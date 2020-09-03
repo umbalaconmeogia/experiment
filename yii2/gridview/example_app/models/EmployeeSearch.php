@@ -31,7 +31,7 @@ class EmployeeSearch extends Employee
         return [
             [['id', 'department_id'], 'integer'],
             [['name'], 'safe'],
-            [['departmentName'], 'safe'],
+            [['departmentName', 'employeeInfoValues'], 'safe'],
         ];
     }
 
@@ -68,7 +68,8 @@ class EmployeeSearch extends Employee
         // Join with EmployeeInfo horizontally.
         $infoCodes = EmployeeInfo::codes();
         foreach ($infoCodes as $code) {
-            $query->leftJoin("employee_info $code", "{$code}.employee_id = employee.id AND {$code}.code = :code", ['code' => $code]);
+            $placeHolder = "code_{$code}";
+            $query->leftJoin("employee_info $code", "{$code}.employee_id = employee.id AND {$code}.code = :$placeHolder", [$placeHolder => $code]);
         }
 
         // add conditions that should always apply here

@@ -54,7 +54,8 @@ Example of data
 ## Display options
 
 ### Make the table not overflow the panel
-Set `style` for the table in GridView `options`.
+
+When there are many columns, the table of GridView may over the screen width. To make it fit in screen width, set `style` for the table in GridView `options`.
 Example
 ```php
 <?= GridView::widget([
@@ -62,5 +63,27 @@ Example
     'options' => ['style' => 'width: 100%'],
     'filterModel' => $searchModel,
     'columns' => $columns,
+]); ?>
+```
+
+### Make ActionColumn buttons to be opened in new tab (window)
+
+Use ActionColumn *buttonOptions* attribute.
+```php
+<?= GridView::widget([
+    'dataProvider' => $dataProvider,
+    'options' => ['style' => 'width: 100%'],
+    'filterModel' => $searchModel,
+    'columns' => [
+        // Other column definition.
+
+        // ActionColumn
+        [
+            'class' => 'yii\grid\ActionColumn',
+            'buttonOptions' => [
+                'target' => '_blank',
+            ],
+        ],
+    ],
 ]); ?>
 ```

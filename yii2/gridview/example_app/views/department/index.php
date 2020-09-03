@@ -32,7 +32,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => 'manager.name',
             ],
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'buttonOptions' => [
+                    'target' => '_blank',
+                ],
+            ],
         ],
     ]); ?>
 
