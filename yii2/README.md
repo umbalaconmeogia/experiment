@@ -77,3 +77,22 @@ To export log to app.log and sql.log separately
     ],
 ],
 ```
+
+## Module
+
+## Create command in module
+
+Change the yii\base\Module::$controllerNamespace to name space of command in module.
+
+One way to achieve that is to test the instance type of the Yii application in the module's init() method:
+```php
+public function init()
+{
+    parent::init();
+    if (Yii::$app instanceof \yii\console\Application) {
+        $this->controllerNamespace = 'app\modules\forum\commands';
+    }
+}
+```
+
+Ref: https://www.yiiframework.com/doc/guide/2.0/en/structure-modules#console-commands-in-modules
