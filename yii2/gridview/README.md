@@ -8,7 +8,27 @@ See [document here](searchExternalName.md)
 
 See [document here](searchClustering.md)
 
-## Search pagination in searching model
+## Set default filter
+
+To set default filter value for GridView (filter set if nothing is specified), set it in controller action.
+
+In the example below, Employee name is filter by "Tomy" by default.
+If name is input in GridView by user, then default filter value is ignored.
+```php
+public function actionIndex()
+{
+    $searchModel = new EmployeeSearch();
+    $searchModel->name = 'Tomy';
+    $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+    return $this->render('index', [
+        'searchModel' => $searchModel,
+        'dataProvider' => $dataProvider,
+    ]);
+}
+```
+
+## Set pagination in searching model
 
 In searching model, add `$pagination` attribute to set pagination searching parameter.
 In controller/action (for example), `actionIndex()`, control the pagination.
