@@ -1,14 +1,14 @@
 title,from page,to page
-配布書類一覧,1,
-入札説明書,3,4
-仕様書,5,26
-入札心得書,27,28
-入札参加申込書,29,
-誓約書,31,
-委任状,33,37
-入札書,39,43
-業務委託契約書,45,55
-同意書,57,
-機能等証明書,59,
-機能証明書明細書,61,65
-守秘義務誓約書,66,
+DocumentList,1,
+Overview,3,4
+Specification,5,26
+Notice,27,28
+Application,29,
+WrittenOath,31,
+LetterOfCommission,33,37
+Bid,39,43
+Contract,45,55
+Agreement,57,
+FunctionCertificate,59,
+FunctionCertificateDetail,61,65
+NDA,66,

@@ -13,18 +13,18 @@ Steps
   * Sub file will have name of type `from page`_`to page`_`title`.pdf
 
 For example, run split.php with sample `split.csv` will generate files.
-* 01_01_配布書類一覧.pdf
-* 03_04_入札説明書.pdf
-* 05_26_仕様書.pdf
-* 27_28_入札心得書.pdf
-* 29_29_入札参加申込書.pdf
-* 31_31_誓約書.pdf
-* 33_37_委任状.pdf
-* 39_43_入札書.pdf
-* 45_55_業務委託契約書.pdf
-* 57_57_同意書.pdf
-* 59_59_機能等証明書.pdf
-* 61_65_機能証明書明細書.pdf
-* 66_66_守秘義務誓約書.pdf
+* 01_01_DocumentList.pdf
+* 03_04_Overview.pdf
+* 05_26_Specification.pdf
+* 27_28_Direction.pdf
+* 29_29_Application.pdf
+* 31_31_WrittenOath.pdf
+* 33_37_LetterOfCommission.pdf
+* 39_43_Bid.pdf
+* 45_55_Contract.pdf
+* 57_57_Agreement.pdf
+* 59_59_FunctionCertificate.pdf
+* 61_65_FunctionCertificateDetail.pdf
+* 66_66_NDA.pdf
 
 Reference: https://umbalaconmeogia.wordpress.com/2020/09/24/pdftk-tool-xu-ly-file-pdf/
