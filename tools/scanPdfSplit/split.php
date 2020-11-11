@@ -1,6 +1,23 @@
 <?php
-$source = 'combine.pdf';
+/**
+ * Split pdf file by information specified in a csv file.
+ * Syntax
+ *   php split.php --source=<source.pdf> --csv=<split.csv>
+ */
+$source = 'source.pdf';
 $csv = 'split.csv';
+
+$longOptions = [
+    'source::',
+    'csv::'
+];
+$options = getopt(NULL, $longOptions);
+$source = $options['source'] ?? $source;
+$csv = $options['csv'] ?? $csv;
+
+if(0 === strpos(PHP_OS, 'WIN')) {
+    setlocale(LC_CTYPE, 'C');
+}
 
 $handle = fopen($csv, 'r');
 
