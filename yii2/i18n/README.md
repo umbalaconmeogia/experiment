@@ -15,6 +15,11 @@
 * Đang tìm hiểu, nhưng chưa rõ cách sử dụng (hình như có bug nên không ra output như kỳ vọng).
 * Có vẻ thích hợp khi cần dịch cả bộ cho một ngôn ngữ (list toàn bộ các từ cần dịch, rồi dịch chúng).
 
+## umbalaconmeogia/yii2-i18nui
+[Github](https://github.com/umbalaconmeogia/yii2-i18nui)
+
+Là giải pháp thay thế cho wokster/yii2-translation-manager
+
 ## wokster/yii2-translation-manager
 
 [Github](https://github.com/wokster/yii2-translation-manager)
