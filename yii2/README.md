@@ -28,6 +28,10 @@
       Employee::EMPLOYEE_SUPERVISOR,
   ]]);
   ```
+### Binding value for IN
+
+Because there's no support of value from Array type in bindValue(), we should use Yii::$app->db->getQueryBuilder()->buildCondition() to generate partial query with IN operator.
+https://stackoverflow.com/questions/30000412/correct-way-to-bind-parameters-using-mysql-in-syntax-in-yii2
 
 ## View
 
